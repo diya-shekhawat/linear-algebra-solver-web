@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Linear Algebra Solver</title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- Aurora Background -->
+
+<div class="aurora aurora1"></div>
+<div class="aurora aurora2"></div>
+<div class="aurora aurora3"></div>
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🧮 Linear Algebra Solver
+
+    </div>
+
+    <ul class="nav-links">
+
+        <li><a href="#home">Home</a></li>
+
+        <li><a href="#topics">Topics</a></li>
+
+        <li><a href="#solver">Solver</a></li>
+
+        <li><a href="#about">About</a></li>
+
+    </ul>
+
+    <button id="themeToggle">
+
+        🌙
+
+    </button>
+
+</nav>
+
+<!-- ================= HERO ================= -->
+
+<section id="home" class="hero">
+
+    <span class="hero-tag">
+
+        ✨ Interactive Learning Platform
+
+    </span>
+
+    <h1>
+
+        Linear Algebra Solver
+
+    </h1>
+
+    <h2>
+
+        Learn • Solve • Visualize
+
+    </h2>
+
+    <p>
+
+        Solve Linear Algebra problems with
+        accurate step-by-step explanations.
+
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="#solver"
+           class="primary-btn">
+
+            Get Started →
+
+        </a>
+
+        <a href="#topics"
+           class="secondary-btn">
+
+            Explore Topics
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= TOPICS ================= -->
+
+<section id="topics" class="topics-section">
+
+    <div class="section-header">
+
+        <span>
+
+            📚 EXPLORE
+
+        </span>
+
+        <h2>
+
+            Mathematical Concepts
+
+        </h2>
+
+        <p>
+
+            Learn every concept interactively.
+
+        </p>
+
+    </div>
+
+    <div class="topic-grid">
+
+        <div class="topic-card yellow">
+
+            <h3>💛 Determinants</h3>
+
+            <p>
+
+                Compute determinants with
+                complete mathematical steps.
+
+            </p>
+
+        </div>
+
+        <div class="topic-card pink">
+
+            <h3>💖 Adjoint & Inverse</h3>
+
+            <p>
+
+                Calculate adjoint and inverse
+                matrices.
+
+            </p>
+
+        </div>
+
+        <div class="topic-card blue">
+
+            <h3>💙 Echelon Form</h3>
+
+            <p>
+
+                Perform Gaussian Elimination
+                step by step.
+
+            </p>
+
+        </div>
+
+        <div class="topic-card cyan">
+
+            <h3>🩵 Rank of Matrix</h3>
+
+            <p>
+
+                Determine matrix rank using
+                row operations.
+
+            </p>
+
+        </div>
+
+        <div class="topic-card purple">
+
+            <h3>💜 Linear Transformation</h3>
+
+            <p>
+
+                Transform vectors using
+                matrices.
+
+            </p>
+
+        </div>
+
+        <div class="topic-card orange">
+
+            <h3>🧡 Eigenvalues & Eigenvectors</h3>
+
+            <p>
+
+                Find eigenvalues and
+                eigenvectors.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= SOLVER ================= -->
+
+<section id="solver">
+
+<section id="solver" class="solver-section">
+
+    <div class="section-header">
+
+        <span>🧮 SOLVER</span>
+
+        <h2>Interactive Matrix Solver</h2>
+
+        <p>
+            Select a topic, choose the matrix size, enter the matrix values,
+            and get a complete step-by-step solution.
+        </p>
+
+    </div>
+
+    <div class="solver-card">
+
+        <!-- Topic -->
+        <div class="input-group">
+
+            <label for="topic">Select Topic</label>
+
+            <select id="topic">
+                <option value="determinant">Determinants</option>
+                <option value="inverse">Adjoint & Inverse</option>
+                <option value="gaussian">Echelon Form</option>
+                <option value="rank">Rank of Matrix</option>
+                <option value="transformation">Linear Transformation</option>
+                <option value="eigen">Eigenvalues & Eigenvectors</option>
+            </select>
+
+        </div>
+
+        <!-- Matrix Size -->
+        <div class="input-group">
+
+            <label for="size">Matrix Size</label>
+
+            <select id="size">
+                <option value="2">2 × 2</option>
+                <option value="3">3 × 3</option>
+            </select>
+
+        </div>
+
+        <!-- Matrix -->
+        <div class="input-group">
+
+            <label>Matrix</label>
+
+            <div id="matrix"></div>
+
+        </div>
+
+        <!-- Vector -->
+        <div id="vectorSection" style="display:none;">
+
+            <div class="input-group">
+
+                <label>Vector</label>
+
+                <div id="vector"></div>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+
+            <button id="solveBtn">Solve</button>
+
+            <button id="clearBtn">Clear</button>
+
+            <button id="resetBtn">Reset</button>
+
+        </div>
+
+    </div>
+
+    <!-- Result -->
+    <div id="result">
+
+        <h2>📋 Step-by-Step Solution</h2>
+
+        <p>Waiting for input...</p>
+
+    </div>
+
+</section>
+
+</section>
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about">
+
+<section id="about" class="about-section">
+
+    <div class="section-header">
+
+        <span>ABOUT</span>
+
+        <h2>About This Project</h2>
+
+        <p>
+
+            This web application helps students solve
+            Linear Algebra problems with complete
+            step-by-step explanations.
+
+        </p>
+
+    </div>
+
+    <div class="about-grid">
+
+        <div class="about-card">
+
+            <h3>🎯 Objective</h3>
+
+            <p>
+
+                Make Linear Algebra concepts
+                interactive and easy to understand.
+
+            </p>
+
+        </div>
+
+        <div class="about-card">
+
+            <h3>⚙ Technologies</h3>
+
+            <p>
+
+                Python Flask<br>
+
+                HTML<br>
+
+                CSS<br>
+
+                JavaScript<br>
+
+                SymPy
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <h3>
+
+        Linear Algebra Solver
+
+    </h3>
+
+    <p>
+
+        Developed by
+
+    </p>
+
+    <h4>
+
+        Diya Shekhawat<br>
+
+        Govind Shekhawat
+
+    </h4>
+
+    <p>
+
+        B.Sc. Data Science
+
+    </p>
+
+    <small>
+
+        © 2026 Linear Algebra Solver
+
+    </small>
+
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
+
+</section>
+
+</body>
+
+</html>
