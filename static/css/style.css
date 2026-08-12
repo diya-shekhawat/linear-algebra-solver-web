@@ -157,15 +157,10 @@ transform:translateY(-50px);
 }
 
 .logo{
-
     font-size:28px;
-
     font-family:'Poppins',sans-serif;
-
     font-weight:700;
-
     color:var(--yellow);
-
 }
 
 .nav-links{
@@ -1335,12 +1330,17 @@ border-radius:20px;
 
 }
 
-.secondary-btn:hover{
+.secondary-btn:hover {
+    transform: translateY(-4px);
 
-    transform:translateY(-4px);
+    background: linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple),
+        var(--blue)
+    );
 
-    box-shadow:0 0 35px rgba(255,79,163,.45);
-
+    box-shadow: 0 0 35px rgba(255, 79, 163, 0.45);
 }
 
 
@@ -1392,4 +1392,274 @@ border-radius:20px;
 
     color: #ffffff;
 }
+/* ==========================================
+   MOBILE BUTTON SIZE FIX
+========================================== */
 
+@media (max-width: 768px) {
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .hero-buttons .primary-btn,
+    .hero-buttons .secondary-btn {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        height: 48px;
+
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .button-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .button-group button {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        height: 48px;
+
+        padding: 0;
+
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .hero-buttons {
+        gap: 8px;
+    }
+
+    .hero-buttons .primary-btn,
+    .hero-buttons .secondary-btn,
+    .button-group button {
+        width: 140px;
+        min-width: 140px;
+        max-width: 140px;
+        height: 46px;
+
+        font-size: 13px;
+    }
+}
+/* ======================================================
+   MATRIXMATE BRANDING
+====================================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+/* Calculator icon */
+
+
+
+
+/* MatrixMate text */
+
+.logo-text {
+    background: linear-gradient(
+        135deg,
+        var(--pink),
+        var(--purple),
+        var(--blue)
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    transition: 0.3s ease;
+}
+
+
+/* Subtle hover glow */
+
+.logo:hover .logo-text {
+    filter:
+        drop-shadow(0 0 8px rgba(255, 79, 163, 0.45));
+}
+
+.logo:hover .logo-icon {
+    transform: scale(1.08);
+
+    transition: 0.3s ease;
+}
+
+
+/* ======================================================
+   MOBILE MATRIXMATE
+====================================================== */
+
+@media (max-width: 900px) {
+
+    .logo {
+        gap: 6px;
+    }
+
+    .logo-icon {
+        font-size: 21px;
+    }
+
+    .logo-text {
+        font-size: 21px;
+        letter-spacing: -0.4px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .logo-icon {
+        font-size: 19px;
+    }
+
+    .logo-text {
+        font-size: 19px;
+    }
+}
+/* ==========================================
+   MATRIXMATE NEON LOGO COLOR
+========================================== */
+
+.logo .logo-text {
+    background: linear-gradient(
+        90deg,
+        var(--pink),
+        var(--purple),
+        var(--blue)
+    ) !important;
+
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+
+    color: transparent !important;
+
+    font-weight: 800;
+}
+
+
+/* Neon calculator icon */
+
+.logo .logo-icon {
+    filter:
+        drop-shadow(0 0 4px rgba(255, 79, 163, 0.8))
+        drop-shadow(0 0 8px rgba(124, 92, 255, 0.7))
+        drop-shadow(0 0 12px rgba(59, 130, 246, 0.5));
+
+    transition: 0.3s ease;
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+    .logo .logo-text {
+        font-size: 19px;
+    }
+
+    .logo .logo-icon {
+        font-size: 19px;
+    }
+}
+/* ==========================================
+   MATRIXMATE BRANDING
+========================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Calculator icon */
+
+.logo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+
+    filter:
+        drop-shadow(0 0 5px rgba(255, 79, 163, 0.7))
+        drop-shadow(0 0 10px rgba(124, 92, 255, 0.5));
+}
+
+/* MatrixMate text */
+
+.logo-text {
+    background: linear-gradient(
+        90deg,
+        #ff4fa3,
+        #8b5cf6,
+        #3b82f6
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    font-weight: 800;
+}
+
+/* Mobile */
+
+@media (max-width: 900px) {
+
+    .logo-icon {
+        font-size: 21px;
+    }
+
+    .logo-text {
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .logo-icon {
+        font-size: 19px;
+    }
+
+    .logo-text {
+        font-size: 19px;
+    }
+}
