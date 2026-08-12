@@ -1,20 +1,27 @@
 const matrix = document.getElementById("matrix");
 const vector = document.getElementById("vector");
 const vectorSection = document.getElementById("vectorSection");
+const result = document.getElementById("result");
+
+
+// =========================
+// CREATE MATRIX
+// =========================
 
 function createMatrix() {
+
     matrix.innerHTML = "";
 
-    let size = parseInt(document.getElementById("size").value);
+    const size = parseInt(document.getElementById("size").value);
 
     for (let i = 0; i < size; i++) {
 
-        let row = document.createElement("div");
+        const row = document.createElement("div");
         row.className = "matrix-row";
 
         for (let j = 0; j < size; j++) {
 
-            let input = document.createElement("input");
+            const input = document.createElement("input");
 
             input.type = "number";
             input.value = "";
@@ -24,17 +31,24 @@ function createMatrix() {
 
         matrix.appendChild(row);
     }
+
     createVector();
 }
+
+
+// =========================
+// CREATE VECTOR
+// =========================
+
 function createVector() {
 
     vector.innerHTML = "";
 
-    let size = parseInt(document.getElementById("size").value);
+    const size = parseInt(document.getElementById("size").value);
 
     for (let i = 0; i < size; i++) {
 
-        let input = document.createElement("input");
+        const input = document.createElement("input");
 
         input.type = "number";
         input.className = "vector-input";
@@ -42,10 +56,26 @@ function createVector() {
         vector.appendChild(input);
     }
 }
-    
-document.getElementById("size").addEventListener("change", createMatrix);
 
+
+// =========================
+// MATRIX SIZE CHANGE
+// =========================
+
+document.getElementById("size").addEventListener(
+    "change",
+    createMatrix
+);
+
+
+// Create initial matrix
 createMatrix();
+
+
+// =========================
+// TOPIC CHANGE
+// =========================
+
 document.getElementById("topic").addEventListener("change", function () {
 
     if (this.value === "transformation") {
@@ -55,31 +85,34 @@ document.getElementById("topic").addEventListener("change", function () {
     } else {
 
         vectorSection.style.display = "none";
-
     }
-
 });
+
+
 // =========================
-// Paste Matrix
+// PASTE MATRIX
 // =========================
 
 document.getElementById("matrix").addEventListener("paste", function (e) {
 
     e.preventDefault();
 
-    let text = (e.clipboardData || window.clipboardData).getData("text");
+    const text = (e.clipboardData || window.clipboardData)
+        .getData("text");
 
-    // Split into rows
-    let rows = text.trim().split(/\r?\n/);
+    if (!text.trim()) {
+        return;
+    }
 
-    let inputs = document.querySelectorAll("#matrix input");
+    const rows = text.trim().split(/\r?\n/);
+
+    const inputs = document.querySelectorAll("#matrix input");
 
     let index = 0;
 
     rows.forEach(row => {
 
-        // Split by spaces OR tabs
-        let values = row.trim().split(/\s+/);
+        const values = row.trim().split(/\s+/);
 
         values.forEach(value => {
 
@@ -88,156 +121,372 @@ document.getElementById("matrix").addEventListener("paste", function (e) {
                 inputs[index].value = value;
 
                 index++;
-
             }
-
         });
-
     });
-
 });
+
+
+// =========================
+// CLEAR BUTTON
+// =========================
 
 document.getElementById("clearBtn").onclick = () => {
 
-    document.querySelectorAll("#matrix input").forEach(box => box.value = "");
+    document.querySelectorAll("#matrix input")
+        .forEach(box => box.value = "");
 
+    document.querySelectorAll("#vector input")
+        .forEach(box => box.value = "");
+
+    result.innerHTML = `
+        <h2>Step-by-Step Solution</h2>
+        <p>Waiting for input...</p>
+    `;
 };
+
+
+// =========================
+// RESET BUTTON
+// =========================
 
 document.getElementById("resetBtn").onclick = () => {
 
     createMatrix();
 
-    document.getElementById("result").innerHTML =
-        "<h2>Step-by-Step Solution</h2><p>Waiting for input...</p>";
-
+    result.innerHTML = `
+        <h2>Step-by-Step Solution</h2>
+        <p>Waiting for input...</p>
+    `;
 };
 
-document.getElementById("solveBtn").onclick = async () => {
 
-    let topic = document.getElementById("topic").value;
+// =========================
+// ERROR DISPLAY
+// =========================
 
-    let size = parseInt(document.getElementById("size").value);
+function showError(message) {
 
-    
+    result.innerHTML = `
+        <div class="step-card error-card">
 
-    let rows = document.querySelectorAll(".matrix-row");
+            <div class="step-title">
+                ⚠️ Error
+            </div>
 
-    let matrixData = [];
+            <div class="step-content">
+                ${message}
+            </div>
 
-    rows.forEach(row => {
-
-        let values = [];
-
-        row.querySelectorAll("input").forEach(input => {
-
-            values.push(Number(input.value));
-
-        });
-
-        matrixData.push(values);
-
-    });
-    // Get vector values (only used for Linear Transformation)
-
-let vectorData = [];
-
-document.querySelectorAll("#vector input").forEach(input => {
-
-    vectorData.push([Number(input.value)]);
-
-});
-
-    let response = await fetch("/solve", {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-
-            topic: topic,
-            matrix: matrixData,
-            vector: vectorData
-
-        })
-
-    });
-
-    let data = await response.json();
-
-    const result = document.getElementById("result");
-
-// Loading animation
-result.innerHTML = `
-<h2>Step-by-Step Solution</h2>
-<div class="loading">
-    <div class="spinner"></div>
-    <p>Calculating...</p>
-</div>
-`;
-
-setTimeout(() => {
-
-    let html = `<h2>📋 Step-by-Step Solution</h2>`;
-
-data.steps.forEach((step, index) => {
-
-    let title = "";
-
-    if(step.includes("📌") || step.includes("✅")){
-
-        title = `
-        <div class="step-title">
-            ${step}
-        </div>
-        `;
-
-    }
-    else{
-
-        title = `
-        <div class="step-content">
-            ${step}
-        </div>
-        `;
-
-    }
-
-    html += `
-        <div class="step-card">
-            ${title}
         </div>
     `;
 
-});
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
 
-result.innerHTML = html;
 
-result.scrollIntoView({
-    behavior:"smooth"
-});
+// =========================
+// SOLVE BUTTON
+// =========================
 
-},600);
+document.getElementById("solveBtn").onclick = async () => {
 
+    const topic = document.getElementById("topic").value;
+
+    const size = parseInt(
+        document.getElementById("size").value
+    );
+
+
+    // -------------------------
+    // CHECK TOPIC
+    // -------------------------
+
+    if (!topic) {
+
+        showError("Please select a topic first.");
+
+        return;
+    }
+
+
+    // -------------------------
+    // READ MATRIX
+    // -------------------------
+
+    const rows = document.querySelectorAll(".matrix-row");
+
+    const matrixData = [];
+
+    let matrixIsEmpty = false;
+    let matrixIsInvalid = false;
+
+
+    rows.forEach(row => {
+
+        const values = [];
+
+        row.querySelectorAll("input").forEach(input => {
+
+            const value = input.value.trim();
+
+            // Empty input
+            if (value === "") {
+
+                matrixIsEmpty = true;
+
+                values.push(null);
+
+                return;
+            }
+
+            const number = Number(value);
+
+            // Invalid number
+            if (Number.isNaN(number)) {
+
+                matrixIsInvalid = true;
+
+                values.push(null);
+
+                return;
+            }
+
+            values.push(number);
+        });
+
+        matrixData.push(values);
+    });
+
+
+    // -------------------------
+    // EMPTY MATRIX CHECK
+    // -------------------------
+
+    if (matrixIsEmpty) {
+
+        showError(
+            "Please fill in all matrix values before solving."
+        );
+
+        return;
+    }
+
+
+    // -------------------------
+    // INVALID MATRIX CHECK
+    // -------------------------
+
+    if (matrixIsInvalid) {
+
+        showError(
+            "Please enter valid numerical values only."
+        );
+
+        return;
+    }
+
+
+    // =========================
+    // READ VECTOR
+    // =========================
+
+    const vectorData = [];
+
+    if (topic === "transformation") {
+
+        const vectorInputs =
+            document.querySelectorAll("#vector input");
+
+        let vectorIsEmpty = false;
+        let vectorIsInvalid = false;
+
+
+        vectorInputs.forEach(input => {
+
+            const value = input.value.trim();
+
+            if (value === "") {
+
+                vectorIsEmpty = true;
+
+                return;
+            }
+
+            const number = Number(value);
+
+            if (Number.isNaN(number)) {
+
+                vectorIsInvalid = true;
+
+                return;
+            }
+
+            vectorData.push([number]);
+        });
+
+
+        if (vectorIsEmpty) {
+
+            showError(
+                "Please fill in all vector values before solving."
+            );
+
+            return;
+        }
+
+
+        if (vectorIsInvalid) {
+
+            showError(
+                "Please enter valid numerical values in the vector."
+            );
+
+            return;
+        }
+    }
+
+
+    // =========================
+    // SHOW LOADING
+    // =========================
+
+    result.innerHTML = `
+        <h2>📋 Step-by-Step Solution</h2>
+
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            <p>Calculating...</p>
+
+        </div>
+    `;
+
+
+    try {
+
+        // =========================
+        // SEND REQUEST
+        // =========================
+
+        const response = await fetch("/solve", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                topic: topic,
+
+                matrix: matrixData,
+
+                vector: vectorData
+            })
+        });
+
+
+        // =========================
+        // READ RESPONSE
+        // =========================
+
+        const data = await response.json();
+
+
+        // =========================
+        // BACKEND ERROR
+        // =========================
+
+        if (!response.ok || data.error) {
+
+            showError(
+                data.error ||
+                "Something went wrong while solving."
+            );
+
+            return;
+        }
+
+
+        // =========================
+        // CHECK RESULT
+        // =========================
+
+        if (!data.steps || !Array.isArray(data.steps)) {
+
+            showError(
+                "No solution was returned. Please check your input."
+            );
+
+            return;
+        }
+
+
+        // =========================
+        // DISPLAY RESULT
+        // =========================
+
+        let html = `
+            <h2>📋 Step-by-Step Solution</h2>
+        `;
+
+
+        data.steps.forEach(step => {
+
+            let content;
+
+
+            if (
+                step.includes("📌") ||
+                step.includes("✅")
+            ) {
+
+                content = `
+                    <div class="step-title">
+                        ${step}
+                    </div>
+                `;
+
+            } else {
+
+                content = `
+                    <div class="step-content">
+                        ${step}
+                    </div>
+                `;
+            }
+
+
+            html += `
+                <div class="step-card">
+                    ${content}
+                </div>
+            `;
+        });
+
+
+        result.innerHTML = html;
+
+
+        result.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+
+    } catch (error) {
+
+        console.error("Solve Error:", error);
+
+
+        showError(
+            "Unable to connect to the server. Please try again."
+        );
+    }
 };
-const themeBtn = document.getElementById("themeToggle");
-
-themeBtn.addEventListener("click", () => {
-
-    document.body.classList.toggle("light");
-
-    if(document.body.classList.contains("light")){
-
-        themeBtn.innerHTML="☀️";
-
-    }
-
-    else{
-
-        themeBtn.innerHTML="🌙";
-
-    }
-
-});

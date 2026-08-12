@@ -196,40 +196,7 @@ transform:translateY(-50px);
 
 }
 
-#themeToggle{
 
-    width:46px;
-
-    height:46px;
-
-    border-radius:50%;
-
-    border:none;
-
-    cursor:pointer;
-
-    color:white;
-
-    font-size:20px;
-
-    background:linear-gradient(
-        135deg,
-        var(--pink),
-        var(--purple),
-        var(--blue)
-    );
-
-    transition:.35s;
-
-}
-
-#themeToggle:hover{
-
-    transform:scale(1.08);
-
-    box-shadow:0 0 25px rgba(255,79,163,.5);
-
-}
 
 /* ===========================
    HERO
@@ -917,131 +884,406 @@ footer small{
 
 }
 
-/* ======================================================
-   LIGHT MODE
-====================================================== */
 
-body.light{
-
-    background:#F8FAFC;
-
-    color:#111827;
-
-}
-
-body.light .navbar{
-
-    background:rgba(255,255,255,.75);
-
-}
-
-body.light .solver-card,
-body.light .topic-card,
-body.light .about-card{
-
-    background:white;
-
-    color:#111827;
-
-}
-
-body.light select,
-body.light input{
-
-    background:#eef2ff;
-
-    color:#111827;
-
-}
-
-body.light .nav-links a{
-
-    color:#111827;
-
-}
-
-body.light .section-header p,
-body.light .topic-card p,
-body.light .about-card p{
-
-    color:#475569;
-
-}
 
 /* ======================================================
-   RESPONSIVE
+   RESPONSIVE MOBILE DESIGN
 ====================================================== */
 
-@media(max-width:900px){
+@media (max-width: 900px) {
 
-.navbar{
+    /* ---------- NAVBAR ---------- */
 
-padding:18px 20px;
+    .navbar {
+        position: fixed;
 
-flex-direction:column;
+        padding: 14px 18px;
 
-gap:15px;
+        flex-direction: row;
+
+        flex-wrap: wrap;
+
+        justify-content: space-between;
+
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 22px;
+
+        max-width: 100%;
+
+        white-space: nowrap;
+    }
+
+    .nav-links {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        flex-wrap: wrap;
+
+        gap: 16px;
+
+        margin-top: 6px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+        min-height: auto;
+
+        padding: 150px 18px 60px;
+    }
+
+    .hero-tag {
+        padding: 8px 16px;
+
+        margin-bottom: 18px;
+
+        font-size: 13px;
+    }
+
+    .hero h1 {
+        font-size: 44px;
+
+        line-height: 1.08;
+    }
+
+    .hero h2 {
+        margin-top: 14px;
+
+        font-size: 22px;
+
+        line-height: 1.3;
+    }
+
+    .hero p {
+        margin-top: 20px;
+
+        max-width: 95%;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    /* ---------- HERO BUTTONS ---------- */
+
+    .hero-buttons {
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 10px;
+
+        margin-top: 28px;
+
+        flex-wrap: nowrap;
+
+        width: 100%;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        padding: 12px 14px;
+
+        font-size: 14px;
+
+        flex: 1;
+
+        max-width: 170px;
+
+        text-align: center;
+
+        white-space: nowrap;
+    }
+
+
+    /* ---------- TOPICS ---------- */
+
+    .topics-section {
+        width: 92%;
+
+        margin: 80px auto;
+    }
+
+    .section-header {
+        margin-bottom: 35px;
+    }
+
+    .section-header h2 {
+        font-size: 34px;
+    }
+
+    .section-header p {
+        font-size: 16px;
+    }
+
+    .topic-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .topic-card {
+        padding: 24px;
+
+        border-radius: 22px;
+    }
+
+
+    /* ---------- SOLVER ---------- */
+
+    .solver-section {
+        width: 92%;
+
+        margin: 80px auto;
+    }
+
+    .solver-card {
+        padding: 24px 18px;
+
+        border-radius: 24px;
+    }
+
+    .input-group {
+        margin-bottom: 25px;
+    }
+
+    .input-group label {
+        font-size: 15px;
+    }
+
+    select {
+        padding: 13px;
+
+        font-size: 15px;
+    }
+
+
+    /* ---------- MATRIX ---------- */
+
+    #matrix,
+    #vector {
+        gap: 10px;
+
+        margin-top: 15px;
+
+        max-width: 100%;
+
+        overflow-x: auto;
+
+        padding: 5px;
+    }
+
+    .matrix-row {
+        gap: 8px;
+    }
+
+    .matrix-row input,
+    #vector input {
+        width: 54px;
+
+        height: 54px;
+
+        border-radius: 14px;
+
+        font-size: 18px;
+
+        flex-shrink: 0;
+    }
+
+
+    /* ---------- SOLVER BUTTONS ---------- */
+
+    .button-group {
+        display: flex;
+
+        flex-direction: row;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 8px;
+
+        flex-wrap: wrap;
+
+        margin-top: 25px;
+    }
+
+    .button-group button {
+        width: auto;
+
+        flex: 1;
+
+        max-width: 150px;
+
+        padding: 12px 14px;
+
+        font-size: 14px;
+    }
+
+
+    /* ---------- RESULTS ---------- */
+
+    #result {
+        margin-top: 40px;
+
+        width: 100%;
+
+        overflow: hidden;
+    }
+
+    .step-card {
+        padding: 20px 16px;
+
+        margin-bottom: 18px;
+
+        border-radius: 18px;
+
+        overflow-x: auto;
+    }
+
+    .step-title {
+        font-size: 17px;
+
+        line-height: 1.4;
+    }
+
+    .step-content {
+        font-size: 15px;
+
+        line-height: 1.7;
+
+        overflow-x: auto;
+    }
+
+
+    /* ---------- ABOUT ---------- */
+
+    .about-section {
+        width: 92%;
+
+        margin: 80px auto;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .about-card {
+        padding: 24px;
+
+        border-radius: 22px;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+        margin-top: 70px;
+
+        padding: 40px 18px;
+    }
+
+    footer h3 {
+        font-size: 25px;
+    }
 
 }
 
-.nav-links{
 
-flex-wrap:wrap;
+/* ======================================================
+   EXTRA SMALL PHONES
+====================================================== */
 
-justify-content:center;
+@media (max-width: 480px) {
 
-gap:18px;
+    .navbar {
+        padding: 12px 14px;
+    }
 
-}
+    .logo {
+        font-size: 19px;
+    }
 
-.hero h1{
+    .nav-links {
+        gap: 12px;
+    }
 
-font-size:48px;
+    .nav-links a {
+        font-size: 13px;
+    }
 
-}
+    .hero {
+        padding: 140px 15px 45px;
+    }
 
-.hero h2{
+    .hero h1 {
+        font-size: 38px;
+    }
 
-font-size:24px;
+    .hero h2 {
+        font-size: 20px;
+    }
 
-}
+    .hero p {
+        font-size: 15px;
+    }
 
-.hero p{
+    .hero-buttons {
+        gap: 7px;
+    }
 
-font-size:18px;
+    .primary-btn,
+    .secondary-btn {
+        padding: 11px 9px;
 
-}
+        font-size: 13px;
+    }
 
-.button-group{
+    .solver-card {
+        padding: 20px 12px;
+    }
 
-flex-direction:column;
+    .matrix-row {
+        gap: 6px;
+    }
 
-}
+    .matrix-row input,
+    #vector input {
+        width: 48px;
 
-.button-group button{
+        height: 48px;
 
-width:100%;
+        font-size: 16px;
+    }
 
-}
+    .button-group {
+        gap: 7px;
+    }
 
-.matrix-row input,
-#vector input{
+    .button-group button {
+        padding: 11px 9px;
 
-width:60px;
-
-height:60px;
-
-font-size:18px;
-
-}
-
-.topic-grid,
-.about-grid{
-
-grid-template-columns:1fr;
-
-}
-
+        font-size: 13px;
+    }
 }
 
 /* ======================================================
@@ -1069,70 +1311,7 @@ var(--blue)
 );
 
 border-radius:20px;
-
 }
-/* ===========================
-   LIGHT MODE RESULT FIX
-=========================== */
-
-body.light #result{
-    color:#111827;
-}
-
-body.light .step-card{
-    background:#ffffff;
-    color:#111827;
-    border-left:5px solid var(--purple);
-    border-top:3px solid var(--blue);
-}
-
-body.light .step-title{
-    color:#111827;
-}
-
-body.light .step-content{
-    color:#374151;
-}
-
-body.light .step-card pre,
-body.light .step-card table,
-body.light .matrix{
-    color:#111827;
-}
-
-/* Hover Effect */
-
-.step-card{
-    margin-bottom:35px;
-    transition:0.3s ease;
-}
-
-.step-card:hover{
-    transform:translateY(-5px);
-}
-body.light .step-title{
-    font-weight:700;
-}
-body.light .step-card{
-    box-shadow:0 8px 20px rgba(0,0,0,0.08);
-}
-/* ===========================
-   HERO LIGHT MODE FIX
-=========================== */
-
-body.light .hero-tag{
-    color:#2563eb;
-    background:#eef4ff;
-}
-
-body.light .hero h2{
-    color:#374151;
-}
-
-body.light .hero p{
-    color:#4b5563;
-}
-
 .secondary-btn{
 
     padding:16px 40px;
@@ -1164,9 +1343,7 @@ body.light .hero p{
 
 }
 
-body.light .secondary-btn:hover{
-    background:#f3f4f6;
-}
+
 /* ==========================================
    MATHEMATICAL MATRIX
 ========================================== */
@@ -1216,9 +1393,3 @@ body.light .secondary-btn:hover{
     color: #ffffff;
 }
 
-/* Light mode */
-
-body.light .matrix-value,
-body.light .matrix-bracket {
-    color: #111827;
-}
